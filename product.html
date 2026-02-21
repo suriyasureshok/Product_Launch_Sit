@@ -292,6 +292,7 @@
             display: flex;
             gap: 16px;
             margin-bottom: 16px;
+            align-items: stretch;
         }
         .quantity-selector {
             display: flex;
@@ -300,7 +301,8 @@
         }
         .qty-btn {
             width: 48px;
-            height: 48px;
+            height: 100%;
+            min-height: 52px;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -530,26 +532,47 @@
                 font-size: 36px !important;
             }
             .thumbnail-grid {
-                grid-template-columns: repeat(3, 1fr);
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
                 gap: 8px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 4px;
             }
-            .main-image {
-                aspect-ratio: 1;
+            .thumbnail-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .thumbnail {
+                flex: 0 0 72px;
+                width: 72px;
             }
             .breadcrumb {
                 font-size: 9px;
                 margin-bottom: 20px;
             }
             .quantity-cart {
-                flex-direction: column;
-                gap: 12px;
+                flex-direction: row;
+                gap: 8px;
+                align-items: stretch;
             }
             .quantity-selector {
-                width: 100%;
+                flex-shrink: 0;
                 justify-content: center;
             }
+            .qty-btn {
+                width: 36px;
+                height: 100%;
+                min-height: 44px;
+            }
+            .qty-input {
+                width: 36px;
+            }
             .add-to-cart {
-                width: 100%;
+                flex: 1;
+                padding: 10px 12px;
+                font-size: 12px;
+                letter-spacing: 0.08em;
             }
             .features-grid {
                 grid-template-columns: 1fr;
@@ -577,7 +600,19 @@
                 font-size: 32px !important;
             }
             .thumbnail-grid {
-                grid-template-columns: repeat(3, 1fr);
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 6px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .thumbnail-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .thumbnail {
+                flex: 0 0 64px;
+                width: 64px;
             }
             .rating {
                 flex-direction: column;
@@ -611,7 +646,6 @@
             </a>
             <nav class="main-nav" id="mainNav">
                 <a href="index.html">Home</a>
-                <a href="index.html#features">Features</a>
                 <a href="index.html#specs">Specifications</a>
                 <a href="index.html#support">Support</a>
                 <a href="product.html" class="active">Purchase</a>
@@ -691,17 +725,6 @@
                 <div class="product-header">
                     <div class="product-tag" style="color: var(--text-dark); opacity: 0.7; margin-bottom: 8px;">Flight Controllers</div>
                     <h1 class="product-title" style="font-size: 32px; margin-bottom: 12px;">Kite H7 Flight Controller for Advanced Drone Navigation System</h1>
-                    
-                    <div class="rating">
-                        <div class="stars">
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
-                        </div>
-                        <span class="review-count">(2 customer reviews)</span>
-                    </div>
 
                     <div style="margin: 20px 0; padding: 16px 0; border-bottom: 1px solid var(--tech-border);">
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -709,13 +732,12 @@
                             <span style="font-size: 14px; font-weight: 700; color: #e74c3c;">In stock</span>
                         </div>
                         
-                        <button class="wishlist-btn" style="max-width: 200px; padding: 12px 24px; background: #2c3e50; color: white; border: none; margin-bottom: 20px;">
-                            <span>Add to Wishlist</span>
+                        <button class="wishlist-btn" style="max-width: 200px; padding: 12px 24px; background: #2f301a; color: white; border: none; margin-bottom: 20px;">
+                            <span>Enquire Now</span>
                         </button>
 
                         <div style="margin-bottom: 16px;">
-                            <p style="font-size: 14px; font-weight: 700; color: var(--text-charcoal); margin-bottom: 4px;">Approx Restocking Date: <span style="font-weight: 400;">10th March, 2026</span></p>
-                            <p style="font-size: 14px; color: var(--text-dark);">For bulk orders or B2B inquiries, email us: <a href="mailto:sales@x7flight.com" style="color: #3498db; text-decoration: none; font-weight: 600;">sales@x7flight.com</a></p>
+                            <p style="font-size: 14px; color: var(--text-dark);">For bulk orders or B2B inquiries, email us: <a href="mailto:kitronix@gmail.com" style="color: #3498db; text-decoration: none; font-weight: 600;">kitronix@gmail.com</a></p>
                         </div>
                     </div>
 
@@ -750,51 +772,43 @@
                     </div>
 
                     <div class="price-section" style="margin: 16px 0 0 0; padding: 0;">
-                        <div style="display: flex; align-items: baseline; gap: 8px;">
-                            <span style="font-size: 18px; color: var(--text-charcoal);">₹</span>
-                            <span class="current-price" style="font-size: 48px;">349.99</span>
-                            <span style="font-size: 14px; color: var(--text-dark); opacity: 0.8;">(Incl. GST)</span>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <div style="display:flex; align-items:baseline; gap:6px; font-size:13px; color:var(--text-dark); opacity:0.75;">
+                                <span>Base price:</span>
+                                <span>₹<span id="basePrice">333.32</span></span>
+                            </div>
+                            <div style="display:flex; align-items:baseline; gap:6px; font-size:13px; color:var(--text-dark); opacity:0.75;">
+                                <span>GST (5%):</span>
+                                <span>₹<span id="gstAmount">16.67</span></span>
+                            </div>
+                            <div style="display:flex; align-items:baseline; gap:8px; margin-top:4px;">
+                                <span style="font-size:28px; color:var(--text-charcoal);">₹</span>
+                                <span id="totalPrice" style="font-size:48px;">349.99</span>
+                                <span style="font-size:13px; color:var(--text-dark); opacity:0.8;">(Incl. 5% GST)</span>
+                            </div>
+                            <div id="perUnitNote" style="font-size:12px; color:var(--text-dark); opacity:0.6; display:none;">per unit price: ₹<span id="perUnit">349.99</span></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="quantity-cart">
                     <div class="quantity-selector">
-                        <button class="qty-btn">
+                        <button class="qty-btn" id="qtyMinus">
                             <span class="material-symbols-outlined">remove</span>
                         </button>
-                        <input type="text" class="qty-input" value="1" readonly>
-                        <button class="qty-btn">
+                        <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
+                        <button class="qty-btn" id="qtyPlus">
                             <span class="material-symbols-outlined">add</span>
                         </button>
                     </div>
                     <button class="add-to-cart">
                         <span class="material-symbols-outlined">shopping_cart_checkout</span>
-                        Add to Cart
+                        Buy now
                     </button>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <span class="material-symbols-outlined">local_shipping</span>
-                        <span>Free Shipping</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="material-symbols-outlined">verified_user</span>
-                        <span>2Y Warranty</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="material-symbols-outlined">sync</span>
-                        <span>30D Returns</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="material-symbols-outlined">support_agent</span>
-                        <span>24/7 Support</span>
-                    </div>
                 </div>
             </div>
         </div>
-
+        <hr style="margin: 60px 0; border-color: var(--tech-border);">
         <div class="specs-section">
             <h2 class="section-title">Technical Specifications</h2>
             <table class="specs-table">
@@ -850,7 +864,6 @@
                 <div class="footer-section">
                     <h4>Product</h4>
                     <ul>
-                        <li><a href="index.html#features">Features</a></li>
                         <li><a href="index.html#specs">Specifications</a></li>
                         <li><a href="#">Downloads</a></li>
                         <li><a href="#">Documentation</a></li>
@@ -921,19 +934,46 @@
             });
         });
 
-        // Quantity controls
-        const qtyBtns = document.querySelectorAll('.qty-btn');
-        const qtyInput = document.querySelector('.qty-input');
-        
-        qtyBtns[0].addEventListener('click', () => {
-            let val = parseInt(qtyInput.value);
-            if (val > 1) qtyInput.value = val - 1;
+        // ── Price × Quantity + GST calculator ──────────────────────
+        const BASE_PRICE = 20952.38;   // price before GST (22000 ÷ 1.05)
+        const GST_RATE   = 0.05;     // 5%
+
+        const qtyInput     = document.getElementById('qtyInput');
+        const qtyMinus     = document.getElementById('qtyMinus');
+        const qtyPlus      = document.getElementById('qtyPlus');
+        const elBase       = document.getElementById('basePrice');
+        const elGst        = document.getElementById('gstAmount');
+        const elTotal      = document.getElementById('totalPrice');
+        const elPerUnit    = document.getElementById('perUnit');
+        const elPerUnitRow = document.getElementById('perUnitNote');
+
+        function fmt(n) { return n.toFixed(2); }
+
+        function updatePrice() {
+            const qty      = parseInt(qtyInput.value) || 1;
+            const base     = BASE_PRICE * qty;
+            const gst      = base * GST_RATE;
+            const total    = base + gst;
+            const perUnit  = BASE_PRICE * (1 + GST_RATE);
+
+            elBase.textContent    = fmt(base);
+            elGst.textContent     = fmt(gst);
+            elTotal.textContent   = fmt(total);
+            elPerUnit.textContent = fmt(perUnit);
+            elPerUnitRow.style.display = qty > 1 ? 'block' : 'none';
+        }
+
+        qtyMinus.addEventListener('click', () => {
+            let v = parseInt(qtyInput.value);
+            if (v > 1) { qtyInput.value = v - 1; updatePrice(); }
         });
-        
-        qtyBtns[1].addEventListener('click', () => {
-            let val = parseInt(qtyInput.value);
-            qtyInput.value = val + 1;
+
+        qtyPlus.addEventListener('click', () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+            updatePrice();
         });
+
+        updatePrice(); // init
 
         // Add to cart
         document.querySelector('.add-to-cart').addEventListener('click', () => {

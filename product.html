@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kitronix - Purchase | Advanced Flight Controller</title>
     <link rel="stylesheet" href="styles.css">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('kitronix-theme') || 'light');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -45,14 +46,14 @@
             width: 100%;
             aspect-ratio: 1;
             overflow: hidden;
-            background: var(--bg-main);
-            border: 1px solid rgba(255, 228, 1, 0.15);
+            background: var(--surface-light);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             position: relative;
             transition: all 0.4s ease;
         }
         .main-image:hover {
-            border-color: rgba(255, 228, 1, 0.35);
-            box-shadow: 0 6px 24px rgba(255, 228, 1, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
         }
         .main-image img {
             width: 100%;
@@ -70,7 +71,7 @@
         }
         .thumbnail {
             aspect-ratio: 1;
-            border: 1px solid rgba(255, 228, 1, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             cursor: pointer;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -80,7 +81,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255, 228, 1, 0.3));
+            background: linear-gradient(135deg, transparent, rgba(212, 168, 0, 0.15));
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -88,9 +89,9 @@
             opacity: 1;
         }
         .thumbnail:hover, .thumbnail.active {
-            border-color: rgba(255, 228, 1, 0.5);
+            border-color: var(--primary);
             transform: scale(1.1);
-            box-shadow: 0 3px 10px rgba(255, 228, 1, 0.15);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         .thumbnail.active {
             border-width: 1px;
@@ -209,7 +210,7 @@
         }
         .add-to-cart:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(255, 228, 1, 0.4), 0 8px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 8px 15px rgba(0, 0, 0, 0.08);
         }
         .add-to-cart:active {
             transform: translateY(-1px);
@@ -311,20 +312,33 @@
                 margin: 60px auto;
             }
         }
+        @media (min-width: 1025px) {
+            .main-nav {
+                margin-left: auto !important;
+            }
+            .header-actions {
+                margin-left: 0;
+            }
+        }
         @media (max-width: 768px) {
             .header-container {
                 padding: 0 16px;
+                height: 72px;
+            }
+            header .logo img {
+                height: 64px !important;
+                width: 64px !important;
             }
             .main-nav {
                 display: none;
                 position: fixed;
-                top: 64px;
+                top: 72px;
                 left: 0;
                 right: 0;
-                background: #1a1a1a;
+                background: #ffffff;
                 flex-direction: column;
                 padding: 20px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                 z-index: 100;
                 gap: 0;
             }
@@ -335,6 +349,18 @@
                 padding: 12px 0;
                 border-bottom: 1px solid var(--tech-border);
                 font-size: 16px;
+                color: rgba(0, 0, 0, 0.7);
+            }
+            [data-theme="dark"] .main-nav {
+                background: #1a1a1a;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            }
+            [data-theme="dark"] .main-nav a {
+                color: rgba(255, 255, 255, 0.75);
+                border-bottom-color: rgba(255, 255, 255, 0.08);
+            }
+            [data-theme="dark"] .main-nav a:hover {
+                color: var(--primary);
             }
             .mobile-menu-btn {
                 display: flex !important;
@@ -395,6 +421,30 @@
             .section-title {
                 font-size: 28px;
             }
+
+            /* Product page mobile footer — 2×2 grid, no branding section */
+            footer .footer-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1.5rem !important;
+                flex-wrap: nowrap !important;
+            }
+            footer .footer-grid .footer-section {
+                flex: none !important;
+                text-align: left !important;
+                border-bottom: none !important;
+                padding-bottom: 0 !important;
+            }
+            footer .footer-grid .footer-section h4 {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+            footer .footer-grid .footer-section a {
+                font-size: 0.8rem;
+            }
+            footer .footer-grid .footer-section ul li {
+                margin-bottom: 0.3rem;
+            }
         }
         @media (max-width: 480px) {
             .product-title {
@@ -433,16 +483,96 @@
             background-color: var(--bg-main);
             color: var(--text-charcoal);
         }
+
+        /* FAQ Accordion */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .faq-item {
+            border: 1px solid var(--tech-border);
+            border-bottom: none;
+            background: var(--surface-light);
+            transition: all 0.3s ease;
+        }
+        .faq-item:last-child {
+            border-bottom: 1px solid var(--tech-border);
+        }
+        .faq-item.active {
+            background: var(--primary-ultra-light);
+            border-color: var(--primary);
+        }
+        .faq-item.active + .faq-item {
+            border-top-color: var(--primary);
+        }
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-charcoal);
+            text-align: left;
+            gap: 16px;
+            transition: color 0.3s;
+        }
+        .faq-question:hover {
+            color: var(--primary-dark);
+        }
+        .faq-icon {
+            font-size: 22px;
+            color: var(--text-dark);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 24px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px;
+        }
+        .faq-answer p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+        @media (max-width: 768px) {
+            .faq-question {
+                padding: 16px 16px;
+                font-size: 14px;
+            }
+            .faq-answer {
+                padding: 0 16px;
+            }
+            .faq-item.active .faq-answer {
+                padding: 0 16px 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Yellow Strip -->
-    <div class="yellow-strip">Smart Tech for Your Next Build</div>
+    <div class="yellow-strip">&lt&lt Smart Tech for Your Next Build &gt&gt</div>
 
     <header>
         <div class="header-container">
             <a class="logo" href="index.html" style="display: flex; align-items: center; gap: 0.5rem;">
-                <img src="assets/Logo2.png" alt="Kite H7 Logo" style="height: 92px; width: 92px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));">
+                <img id="siteLogo" src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 92px; width: 92px; object-fit: contain;">
             </a>
             <nav class="main-nav" id="mainNav">
                 <a href="index.html">Home</a>
@@ -451,14 +581,11 @@
                 <a href="product.html" class="active">Purchase</a>
             </nav>
             <div class="header-actions">
-                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" style="display: none;">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode">
+                    <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+                </button>
+                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn">
                     <span class="material-symbols-outlined">menu</span>
-                </button>
-                <button class="icon-btn">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-                <button class="icon-btn">
-                    <span class="material-symbols-outlined">shopping_cart</span>
                 </button>
             </div>
         </div>
@@ -537,7 +664,7 @@
                             <span style="font-size: 14px; font-weight: 700; color: #e74c3c;">In stock</span>
                         </div>
                         
-                        <a href="https://wa.me/918072816532?text=Hi%2C%20I%27m%20interested%20in%20the%20Kite%20H7%20Flight%20Controller" target="_blank" class="wishlist-btn" style="max-width: 200px; padding: 12px 24px; background: #2f301a; color: white; border: none; margin-bottom: 20px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+                        <a href="https://wa.me/917200275179?text=Hi%2C%20I%27m%20interested%20in%20the%20Kite%20H7%20Flight%20Controller" target="_blank" class="wishlist-btn" style="max-width: 200px; padding: 12px 24px; background: var(--primary); color: #000; border: none; margin-bottom: 20px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
                             <span>Enquire Now</span>
                         </a>
 
@@ -551,7 +678,7 @@
                         <ul style="list-style: decimal; padding-left: 20px; line-height: 2; color: var(--text-dark);">
                             <li>Type: Advanced autopilot system.</li>
                             <li>Processor: STM32H7 @ 480 MHz (ARM Cortex-M7).</li>
-                            <li>Connectivity: 2 GPS, 3 telemetry, 2 CAN, 1 I²C</li>
+                            <li>Connectivity: 2 x GPS, 3 x telemetry, 2 x CAN, 1 x I²C port</li>
                             <li>Dimensions: 63 × 48 × 18 mm.</li>
                             <li>PWM Outputs: 14 channels for versatile UAV setups</li>
                             <li>IMU Sensor: ICM-42688 + BMI088, Dual-Redundant for stable, precise sensingy.</li>
@@ -631,7 +758,7 @@
                         <span class="material-symbols-outlined" style="font-size: 18px;">mail</span>
                         Email Support
                     </a>
-                    <a href="https://wa.me/918072816532" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 2px solid var(--primary); color: var(--text-charcoal); font-weight: 700; font-size: 13px; text-decoration: none; border-radius: 4px;">
+                    <a href="https://wa.me/917200275179" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 2px solid var(--primary); color: var(--text-charcoal); font-weight: 700; font-size: 13px; text-decoration: none; border-radius: 4px;">
                         <span class="material-symbols-outlined" style="font-size: 18px;">chat</span>
                         WhatsApp
                     </a>
@@ -649,11 +776,11 @@
                 <tbody>
                     <tr>
                         <td>Processor</td>
-                        <td>STM32H7 Series (480MHz Triple Core)</td>
+                        <td>STM32H7 Series (480MHz)</td>
                     </tr>
                     <tr>
                         <td>IMU Sensor</td>
-                        <td>ADIS16470 Industrial Grade IMU</td>
+                        <td> ICM-42688, BMI088</td>
                     </tr>
                     <tr>
                         <td>Barometer</td>
@@ -669,7 +796,7 @@
                     </tr>
                     <tr>
                         <td>Connectivity</td>
-                        <td>8x UART, 14x PWM, I2C, SPI, CAN Bus</td>
+                        <td>2 x GPS, 3 x telemetry, 2 x CAN, 1 x I²C port</td>
                     </tr>
                     <tr>
                         <td>Storage</td>
@@ -690,7 +817,100 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- FAQ Section -->
+        <div class="specs-section" id="faq">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What firmware does the Kite H7 support?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The Kite H7 is compatible with any customized firmware stack including ArduPilot and PX4. It ships with pre-installed firmware and can be reflashed via USB or SD card.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What is the Dual IMU architecture?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The Kite H7 features two independent IMU sensors — ICM-42688 (TDK InvenSense) and BMI088 (Bosch). This dual-redundant setup improves vibration resistance, increases attitude estimation accuracy, and ensures reliable performance even during aggressive maneuvers.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What connectors and interfaces are available?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The board provides 8× UART, 14× PWM outputs, I2C, SPI, and CAN Bus interfaces. It supports 2 GPS ports, 3 telemetry ports, and uses JST-GH connectors for reliable, compact wiring.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What is included in the box?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Each unit ships with the Kite H7 main board (with pre-installed firmware), JST-GH connectors and power cables, and a quick start guide with technical manual.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What is the operating temperature range?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The Kite H7 is rated for operation from –40°C to +85°C, making it suitable for a wide range of environmental conditions including extreme cold and high-temperature missions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I get support after purchase?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer 24/7 after-sales support. You can reach us anytime via email at <a href="mailto:kitronix240@gmail.com" style="color: var(--primary); font-weight: 600;">kitronix240@gmail.com</a> or through <a href="https://wa.me/917200275179" target="_blank" style="color: var(--primary); font-weight: 600;">WhatsApp</a> for troubleshooting, firmware updates, and guidance.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I place a bulk or B2B order?</span>
+                        <span class="material-symbols-outlined faq-icon">expand_more</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! For bulk orders or B2B inquiries, please email us at <a href="mailto:kitronix240@gmail.com" style="color: var(--primary); font-weight: 600;">kitronix240@gmail.com</a> and our team will get back to you with pricing and delivery details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <!-- Reddit Community Section -->
+    <section id="community" class="light-section" style="border-top: 1px solid var(--tech-border);">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Community Updates</h2>
+                <div class="section-divider"></div>
+                <p class="section-description">Latest posts from our Reddit community</p>
+            </div>
+            <div id="redditPosts" class="reddit-grid">
+                <div class="reddit-loading" id="redditLoading">
+                    <span class="material-symbols-outlined" style="font-size: 2rem; color: var(--primary); animation: spin 1s linear infinite;">progress_activity</span>
+                    <p style="margin-top: 0.5rem; color: rgba(0,0,0,0.5);">Loading Reddit posts...</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://www.reddit.com/r/Kitronix_Kite_H7/" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+                    Visit r/Kitronix_Kite_H7
+                </a>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-container">
@@ -733,7 +953,7 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Kite H7. All rights reserved.</p>
-                <p>Designed for Professional UAV Applications</p>
+                
             </div>
         </div>
     </footer>
@@ -744,6 +964,16 @@
             document.getElementById('mainProductImage').src = imageSrc;
             document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        // FAQ accordion toggle
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isActive = item.classList.contains('active');
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            // Toggle current
+            if (!isActive) item.classList.add('active');
         }
 
         // Mobile menu toggle
@@ -816,7 +1046,7 @@
             const qty = parseInt(qtyInput.value) || 1;
             const message = `Hi I'm interested in ${qty} unit${qty > 1 ? 's' : ''} of Kite H7 Flight Controllers`;
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/918072816532?text=${encodedMessage}`;
+            const whatsappUrl = `https://wa.me/917200275179?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
         });
 
@@ -854,6 +1084,137 @@
         checkMobile(); // Initial check
     </script>
 
+    <!-- Reddit Pinned Posts Integration -->
+    <script>
+    (function () {
+        var SUBREDDIT = 'Kitronix_Kite_H7';
+        var API_URL = 'https://www.reddit.com/r/' + SUBREDDIT + '/hot.json?limit=10';
+        var container = document.getElementById('redditPosts');
+        var loading = document.getElementById('redditLoading');
+
+        function timeAgo(utc) {
+            var seconds = Math.floor((Date.now() / 1000) - utc);
+            if (seconds < 60) return seconds + 's ago';
+            var minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return minutes + 'm ago';
+            var hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + 'h ago';
+            var days = Math.floor(hours / 24);
+            if (days < 30) return days + 'd ago';
+            var months = Math.floor(days / 30);
+            return months + 'mo ago';
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function createCard(post) {
+            var isPinned = post.stickied;
+            var card = document.createElement('a');
+            card.className = 'reddit-card';
+            card.href = 'https://www.reddit.com' + post.permalink;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+
+            card.innerHTML =
+                '<div class="reddit-card-header">' +
+                    (isPinned ? '<span class="reddit-card-pin"><span class="material-symbols-outlined" style="font-size:12px;">push_pin</span> Pinned</span>' : '') +
+                    '<span>u/kitronix240</span>' +
+                    '<span>&bull;</span>' +
+                    '<span>' + timeAgo(post.created_utc) + '</span>' +
+                '</div>' +
+                '<h3>' + escapeHtml(post.title) + '</h3>' +
+                (post.selftext ? '<p>' + escapeHtml(post.selftext.substring(0, 200)) + (post.selftext.length > 200 ? '...' : '') + '</p>' : '') +
+                '<div class="reddit-card-footer">' +
+                    '<span><span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span> ' + post.ups + '</span>' +
+                    '<span><span class="material-symbols-outlined" style="font-size:16px;">chat_bubble</span> ' + post.num_comments + '</span>' +
+                    '<span style="margin-left:auto;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span> Read more</span>' +
+                '</div>';
+
+            return card;
+        }
+
+        function renderFallback() {
+            if (loading) loading.remove();
+            container.innerHTML =
+                '<a class="reddit-card" href="https://www.reddit.com/r/Kitronix_Kite_H7/" target="_blank">' +
+                    '<div class="reddit-card-header"><span class="reddit-card-pin"><span class="material-symbols-outlined" style="font-size:12px;">push_pin</span> Pinned</span><span>u/kitronix240</span></div>' +
+                    '<h3>Visit our Reddit community for the latest updates</h3>' +
+                    '<p>Join the Kitronix community on Reddit for product announcements, firmware updates, build guides, and technical discussions.</p>' +
+                    '<div class="reddit-card-footer"><span style="margin-left:auto;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span> Visit Reddit</span></div>' +
+                '</a>' +
+                '<a class="reddit-card" href="https://www.reddit.com/r/Kitronix_Kite_H7/" target="_blank">' +
+                    '<div class="reddit-card-header"><span class="reddit-card-pin"><span class="material-symbols-outlined" style="font-size:12px;">push_pin</span> Pinned</span><span>u/kitronix240</span></div>' +
+                        '<h3>Kite H7 Getting Started Guide</h3>' +
+                    '<p>Everything you need to know to set up your Kite H7 flight controller \u2014 from unboxing to first flight.</p>' +
+                    '<div class="reddit-card-footer"><span style="margin-left:auto;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span> Visit Reddit</span></div>' +
+                '</a>' +
+                '<a class="reddit-card" href="https://www.reddit.com/r/Kitronix_Kite_H7/" target="_blank">' +
+                    '<div class="reddit-card-header"><span class="reddit-card-pin"><span class="material-symbols-outlined" style="font-size:12px;">push_pin</span> Pinned</span><span>u/kitronix240</span></div>' +
+                    '<h3>Firmware Update v2.1 \u2014 What\u0027s New</h3>' +
+                    '<p>Improved GPS failsafe handling, smoother EKF convergence on dual-IMU, and new CAN bus diagnostics mode. Update guide included.</p>' +
+                    '<div class="reddit-card-footer"><span style="margin-left:auto;"><span class="material-symbols-outlined" style="font-size:16px;">open_in_new</span> Visit Reddit</span></div>' +
+                '</a>';
+        }
+
+        fetch(API_URL)
+            .then(function (res) {
+                if (!res.ok) throw new Error('Reddit API error');
+                return res.json();
+            })
+            .then(function (data) {
+                var posts = data.data.children.map(function (c) { return c.data; });
+                var pinned = posts.filter(function (p) { return p.stickied; });
+                var regular = posts.filter(function (p) { return !p.stickied; });
+                var display = pinned.concat(regular).slice(0, 6);
+
+                if (display.length === 0) {
+                    renderFallback();
+                    return;
+                }
+
+                if (loading) loading.remove();
+                display.forEach(function (post) {
+                    container.appendChild(createCard(post));
+                });
+            })
+            .catch(function () {
+                renderFallback();
+            });
+    })();
+    </script>
+
+    <!-- Theme Toggle -->
+    <script>
+    (function () {
+        var btn = document.getElementById('themeToggleBtn');
+        var icon = document.getElementById('themeToggleIcon');
+        var logo = document.getElementById('siteLogo');
+        var html = document.documentElement;
+
+        var LOGO_LIGHT = 'assets/Kitronix.png';
+        var LOGO_DARK  = 'assets/Logo2.png';
+
+        function applyTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            if (logo) logo.src = theme === 'dark' ? LOGO_DARK : LOGO_LIGHT;
+        }
+
+        // Apply saved theme on load
+        var saved = localStorage.getItem('kitronix-theme') || 'light';
+        applyTheme(saved);
+
+        btn.addEventListener('click', function () {
+            var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('kitronix-theme', next);
+            applyTheme(next);
+        });
+    })();
+    </script>
 
 </body>
 </html>

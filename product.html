@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kitronix - Purchase | Advanced Flight Controller</title>
     <link rel="stylesheet" href="styles.css">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('kitronix-theme') || 'light');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -311,6 +312,14 @@
                 margin: 60px auto;
             }
         }
+        @media (min-width: 1025px) {
+            .main-nav {
+                margin-left: auto !important;
+            }
+            .header-actions {
+                margin-left: 0;
+            }
+        }
         @media (max-width: 768px) {
             .header-container {
                 padding: 0 16px;
@@ -340,6 +349,18 @@
                 padding: 12px 0;
                 border-bottom: 1px solid var(--tech-border);
                 font-size: 16px;
+                color: rgba(0, 0, 0, 0.7);
+            }
+            [data-theme="dark"] .main-nav {
+                background: #1a1a1a;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            }
+            [data-theme="dark"] .main-nav a {
+                color: rgba(255, 255, 255, 0.75);
+                border-bottom-color: rgba(255, 255, 255, 0.08);
+            }
+            [data-theme="dark"] .main-nav a:hover {
+                color: var(--primary);
             }
             .mobile-menu-btn {
                 display: flex !important;
@@ -551,7 +572,7 @@
     <header>
         <div class="header-container">
             <a class="logo" href="index.html" style="display: flex; align-items: center; gap: 0.5rem;">
-                <img src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 92px; width: 92px; object-fit: contain;">
+                <img id="siteLogo" src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 92px; width: 92px; object-fit: contain;">
             </a>
             <nav class="main-nav" id="mainNav">
                 <a href="index.html">Home</a>
@@ -560,14 +581,11 @@
                 <a href="product.html" class="active">Purchase</a>
             </nav>
             <div class="header-actions">
-                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" style="display: none;">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode">
+                    <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+                </button>
+                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn">
                     <span class="material-symbols-outlined">menu</span>
-                </button>
-                <button class="icon-btn">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-                <button class="icon-btn">
-                    <span class="material-symbols-outlined">shopping_cart</span>
                 </button>
             </div>
         </div>
@@ -1166,6 +1184,35 @@
             .catch(function () {
                 renderFallback();
             });
+    })();
+    </script>
+
+    <!-- Theme Toggle -->
+    <script>
+    (function () {
+        var btn = document.getElementById('themeToggleBtn');
+        var icon = document.getElementById('themeToggleIcon');
+        var logo = document.getElementById('siteLogo');
+        var html = document.documentElement;
+
+        var LOGO_LIGHT = 'assets/Kitronix.png';
+        var LOGO_DARK  = 'assets/Logo2.png';
+
+        function applyTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            if (logo) logo.src = theme === 'dark' ? LOGO_DARK : LOGO_LIGHT;
+        }
+
+        // Apply saved theme on load
+        var saved = localStorage.getItem('kitronix-theme') || 'light';
+        applyTheme(saved);
+
+        btn.addEventListener('click', function () {
+            var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('kitronix-theme', next);
+            applyTheme(next);
+        });
     })();
     </script>
 

@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="styles.css" rel="stylesheet"/>
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('kitronix-theme') || 'light');</script>
 </head>
 <body>
 
@@ -19,7 +20,7 @@
 <header>
     <div class="header-container">
         <a class="logo" href="#" style="display: flex; align-items: center; gap: 0.5rem;">
-            <img src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 72px; width: 72px; object-fit: contain;">
+            <img id="siteLogo" src="assets/Kitronix.png" alt="Kite H7 Logo" style="height: 72px; width: 72px; object-fit: contain;">
         </a>
         <nav id="mainNavIndex">
             <a href="#overview">Overview</a>
@@ -28,9 +29,14 @@
             <a href="#support">Support</a>
             <a href="product.html">Purchase</a>
         </nav>
-        <button class="icon-btn mobile-menu-btn" id="mobileMenuBtnIndex" style="display: none; width: 40px; height: 40px; border: 2px solid var(--tech-border); background: transparent; color: var(--text-charcoal); cursor: pointer; align-items: center; justify-content: center;">
-            <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
-        </button>
+        <div class="header-actions-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode">
+                <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+            </button>
+            <button class="icon-btn mobile-menu-btn" id="mobileMenuBtnIndex">
+                <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+            </button>
+        </div>
     </div>
 </header>
 
@@ -634,6 +640,35 @@
             e.preventDefault();
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
+    });
+})();
+</script>
+
+<!-- Theme Toggle -->
+<script>
+(function () {
+    var btn = document.getElementById('themeToggleBtn');
+    var icon = document.getElementById('themeToggleIcon');
+    var logo = document.getElementById('siteLogo');
+    var html = document.documentElement;
+
+    var LOGO_LIGHT = 'assets/Kitronix.png';
+    var LOGO_DARK  = 'assets/Logo2.png';
+
+    function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        if (logo) logo.src = theme === 'dark' ? LOGO_DARK : LOGO_LIGHT;
+    }
+
+    // Apply saved theme on load
+    var saved = localStorage.getItem('kitronix-theme') || 'light';
+    applyTheme(saved);
+
+    btn.addEventListener('click', function () {
+        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('kitronix-theme', next);
+        applyTheme(next);
     });
 })();
 </script>
